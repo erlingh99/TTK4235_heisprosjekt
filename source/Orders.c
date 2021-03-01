@@ -7,9 +7,9 @@
 
 
 void init() {
-    get_current_floor()
-    obstruksjon()
-    stopp()
+    get_current_floor();
+    obstruksjon();
+    stopp();
 
 }
 
@@ -29,7 +29,7 @@ destination get_next_dest(int destFloor) {
              //
         case third_floor:
 
-        case fourth_floor;
+        case fourth_floor:
 
     }
 }
@@ -53,7 +53,7 @@ jen heisen sist var i være tent.
 
 
 */
-int add_order(Order Order) {
+int add_order(order) {
     
 }
 
