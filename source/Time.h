@@ -6,13 +6,10 @@
 #pragma once
 #include <stdbool.h>
 
-int timeStamp;
-int timeoutSecs;
-bool timerActive;
-
 /**
  * @brief Starts the timer by saving a timestamp and the length of the timer.
  * @param timeoutSecs The number of seconds untill the timer is finished
+ * If a timer is already active, the old will be overwritten.
  */
 void timerStart(int timeoutSecs);
 

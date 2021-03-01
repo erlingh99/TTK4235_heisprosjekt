@@ -5,60 +5,109 @@
 #include "Orders.h"
 #include "hardware.h"
 
-
-void init() {
-    get_current_floor();
-    obstruksjon();
-    stopp();
-
+int **orders_init()
+{
+    int orders[HARDWARE_NUMBER_OF_FLOORS][2]; //2 as in the 2 possible ways of ordering the elevator, up/down
+    return orders;
 }
 
 
-destination get_next_dest(int destFloor) {
-
-    switch(destFloor) {
-        case first_floor:
-            if (check_if_order_exist() == true) {
-                //direction up
-            }
-            else {
-                //stile
-                //state = stille
-            }
-        case second_floor:
-             //
-        case third_floor:
-
-        case fourth_floor:
-
+void addOrder(int **list, int floor, HardwareOrder buttonType)
+{
+    switch (buttonType)
+    {
+        case HARDWARE_ORDER_INSIDE:
+            list[floor][0] = 1;
+            list[floor][1] = 1; //Dir does not matter
+            break;
+        case HARDWARE_ORDER_UP:
+            list[floor][1] = 1;
+            break;
+        case HARDWARE_ORDER_DOWN:
+            list[floor][0] = 1;
+            break;
     }
 }
 
-bool clear_all_orders () {
-
+int destination(int **orders, int floor, HardwareMovement dir)
+{
+    switch (dir)
+    {
+        case HARDWARE_MOVEMENT_UP:
+            int dest = checkUp(orders, floor);
+            if (dest == -1)
+                dest = checkDown(orders, HARDWARE_NUMBER_OF_FLOORS);
+            if (dest == -1)
+                dest = checkUp(orders, 0);
+            return dest;
+            
+        case HARDWARE_MOVEMENT_DOWN:
+            int dest = checkDown(orders, floor);
+            if (dest == -1)
+                dest = checkUp(orders, 0);
+            if (dest == -1)
+                dest = checkDown(orders, HARDWARE_NUMBER_OF_FLOORS);
+            return dest;
+            
+        default:
+            int dest = checkUp(orders, 0);
+            if (dest == -1)
+                dest = checkDown(orders, HARDWARE_NUMBER_OF_FLOORS);
+            return dest;            
+    }
 }
-/** 
-Når en bestilling gjøres, skal lyset i bestillingsknappen lyse helt til
-bestillingen er utført. Dette gjelder b ̊ade bestillinger inne i heisen,
-og bestillinger utenfor.
 
-Om en bestillingsknapp ikke har en tilhørende bestilling, skal lyset
-i knappen være slukket.
-
-Når heisen er i en etasje skal korrekt etasjelys være tent.
-
-Når heisen er i bevegelse mellom to etasjer, skal etasjelyset til etas-
-jen heisen sist var i være tent.
-
-
-
-*/
-int add_order(order) {
-    
+int checkDown(int **orders, int floor)
+{
+    for (int fl = floor; fl>=0 ; fl--)
+    {
+        if (orders[fl][0] == 1)
+            return fl;
+        
+    }
+    return -1;
 }
 
-bool check_if_order_exist( ) {
-
+int checkUp(int **orders, int floor)
+{
+    for (int fl = floor; fl<HARDWARE_NUMBER_OF_FLOORS; fl++)
+    {
+        if (orders[fl][1] == 1)
+        {
+            return fl; 
+        }
+    }
+    return -1;
 }
 
-//Potensielt
+void clearAllOrders(int **orders)
+{
+    for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++)
+    {
+        for (int b = 0; b < 2; b++)
+        {
+            orders[f][b] = 0;
+        }
+    }
+}
+
+int hasOrders(int **orderlist)
+{
+    for(int floors = 0; floors < HARDWARE_NUMBER_OF_FLOORS; floors++)
+    {
+        for(int buttons = 0; buttons < 2; buttons++)
+        {
+            if(orderList[floors][buttons] != 0)
+            {
+                return 1;
+            }
+        }
+    }
+    return 0;    
+}
+
+void orderCompleted(int **orderList, int floor)
+{
+    orderList[floor][0] = 0;
+    orderList[floor][1] = 0; //everyone on the floor boards the elevator regardless of dir
+}
