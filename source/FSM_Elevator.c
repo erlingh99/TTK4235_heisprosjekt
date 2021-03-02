@@ -27,8 +27,8 @@ void elevatorStateMachine()
             break;
         case IDLE:
             e->direction = HARDWARE_MOVEMENT_STOP;
-            int err = closeDoor();
-            if (err == 0 && hasOrders(e->orders))
+            closeDoor();
+            if (e->doorState == CLOSED && hasOrders(e->orders))
             {
                 e->elevatorState = MOVING;
                 fprintf(stderr, "STATE change: IDLE->MOVING\n");
@@ -39,7 +39,7 @@ void elevatorStateMachine()
             {
                 hardware_command_movement(HARDWARE_MOVEMENT_STOP);
                 e->elevatorState = IDLE;
-                fprintf(stderr, "STATE change: IDLE->MOVING\n");
+                fprintf(stderr, "STATE change: MOVING->IDLE\n");
                 openDoor();
                 orderCompleted(e->orders, e->floor);
 
