@@ -1,14 +1,28 @@
 
 #pragma once
-#include "stdlib.h"
+#include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include "Orders.h"
-#include "hardware.h"
+
 
 int **orders_init()
 {
-    int orders[HARDWARE_NUMBER_OF_FLOORS][2]; //2 as in the 2 possible ways of ordering the elevator, up/down
-    return orders;
+    int** pp_orders = (int**)malloc(HARDWARE_NUMBER_OF_FLOORS*sizeof(int*));
+    for (int pos = 0; pos<HARDWARE_NUMBER_OF_FLOORS; pos++)
+        pp_orders[pos] = (int*)malloc(2*sizeof(int));
+    
+    for (int p1 = 0; p1<4; p1++)
+    {
+        for (int p2 = 0; p2<2; p2++)
+        {
+            pp_orders[p1][p2] = 0;
+            fprintf(stderr, "%d, ", pp_orders[p1][p2]);
+        }
+        fprintf(stderr, "\n");
+    }
+    fprintf(stderr, "init orders done\n");
+    return pp_orders;
 }
 
 
@@ -31,30 +45,34 @@ void addOrder(int **list, int floor, HardwareOrder buttonType)
 
 int destination(int **orders, int floor, HardwareMovement dir)
 {
+    fprintf(stderr, "finding dest \n");
+    int dest;
     switch (dir)
     {
         case HARDWARE_MOVEMENT_UP:
-            int dest = checkUp(orders, floor);
+            dest = checkUp(orders, floor);
             if (dest == -1)
                 dest = checkDown(orders, HARDWARE_NUMBER_OF_FLOORS);
             if (dest == -1)
                 dest = checkUp(orders, 0);
-            return dest;
+            break;
             
         case HARDWARE_MOVEMENT_DOWN:
-            int dest = checkDown(orders, floor);
+            dest = checkDown(orders, floor);
             if (dest == -1)
                 dest = checkUp(orders, 0);
             if (dest == -1)
                 dest = checkDown(orders, HARDWARE_NUMBER_OF_FLOORS);
-            return dest;
+            break;
             
         default:
-            int dest = checkUp(orders, 0);
+            dest = checkUp(orders, 0);
             if (dest == -1)
                 dest = checkDown(orders, HARDWARE_NUMBER_OF_FLOORS);
-            return dest;            
+            break;            
     }
+    fprintf(stderr, "dest found: %d \n", dest);
+    return dest;
 }
 
 int checkDown(int **orders, int floor)
@@ -91,13 +109,13 @@ void clearAllOrders(int **orders)
     }
 }
 
-int hasOrders(int **orderlist)
+int hasOrders(int **orders)
 {
     for(int floors = 0; floors < HARDWARE_NUMBER_OF_FLOORS; floors++)
     {
         for(int buttons = 0; buttons < 2; buttons++)
         {
-            if(orderList[floors][buttons] != 0)
+            if(orders[floors][buttons] != 0)
             {
                 return 1;
             }

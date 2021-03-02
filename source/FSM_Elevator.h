@@ -24,7 +24,7 @@ void elevatorStateMachine();
 /**
  * @brief Called when a new order is registered. Handles the new order. Sets lights.
  */
-void event_newOrder(order);
+void event_newOrder(int floor, HardwareOrder buttonType);
 
 /**
  * @brief Called when the floor sensor is triggered. Sets info in elevator and lights.
@@ -52,3 +52,10 @@ int openDoor();
  * @return @c int indicating success (0) or failure (1)
  */
 int closeDoor();
+
+
+/**
+ * @brief Checks if the elevator is at a floor.
+ * @return 1 if yes, 0 if not
+ */
+int atFloor();

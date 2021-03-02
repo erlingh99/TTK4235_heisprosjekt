@@ -1,6 +1,8 @@
 #include "FSM_Elevator.h"
 #include "Time.h"
 #include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 Elevator *e;
 
@@ -12,6 +14,7 @@ void FSM_ElevatorInit(int doorOpenTime)
 
 void elevatorStateMachine()
 {
+    fprintf(stderr, "STATE: %d\n", e->elevatorState);
     switch (e->elevatorState)
     {
         case INIT:
@@ -37,6 +40,7 @@ void elevatorStateMachine()
                 e->elevatorState = IDLE;
                 openDoor();
                 orderCompleted(e->orders, e->floor);
+
                 for (int b = 0; b<HARDWARE_NUMBER_OF_BUTTONS; b++)
                     hardware_command_order_light(e->floor, b, 0);
             }
@@ -63,6 +67,8 @@ void event_newOrder(int floor, HardwareOrder buttonType)
 {
     if (e->elevatorState == MOVING || e->elevatorState == IDLE)
     {
+        fprintf(stderr, "adding new order\n");
+
         addOrder(e->orders, floor, buttonType);
         hardware_command_order_light(floor, buttonType, 1);
     }
@@ -73,6 +79,7 @@ void event_floorSensorTriggered(int floor)
 {
     e->floor = floor;
     hardware_command_floor_indicator_on(floor);
+    fprintf(stderr, "floor sensor triggered\n");
 }
 
 
@@ -110,7 +117,7 @@ int openDoor()
 
 int closeDoor()
 {
-    if (checkTimeout() && !e->obstruction || e->doorState == CLOSED)
+    if ((checkTimeout() && !e->obstruction) || e->doorState == CLOSED)
     {
         hardware_command_door_open(0);
         e->doorState == CLOSED;

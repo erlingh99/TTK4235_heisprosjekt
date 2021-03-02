@@ -2,7 +2,7 @@
  * @file
  * @brief controls and stores which orders to be executed
  */
-
+#include "hardware.h"
 
 /**
  * @brief intializes the list of orders
@@ -49,8 +49,7 @@ int destination(int **orderList, int currentFloor, HardwareMovement dir);
 int hasOrders(int **orderlist);
 
 
-typedef struct {
-    int destFloor;
-    int activeOrders;
-    HardwareOrder buttonType;
-} Order;
+int checkUp(int** orderList, int floor);
+
+
+int checkDown(int** orderList, int floor);

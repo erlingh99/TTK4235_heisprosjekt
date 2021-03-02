@@ -2,8 +2,10 @@
 #include "hardware.h"
 #include "FSM_Elevator.h"
 #include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-int elevatorLoop()
+void elevatorLoop()
 {
     while (1)
     {
@@ -25,17 +27,19 @@ int elevatorLoop()
                 }
             }
         }
-
+        fprintf(stderr, "entering state machine\n");
         elevatorStateMachine();
+        fprintf(stderr, "exiting state machine\nSleeping 1 sec\n");
+
 
         sleep(1); //1 second might be too long
     }
 }
 
 
-int startElevatorSoftware()
+void startElevatorSoftware()
 {
-    FSM_ElevatorInit(3);
-
+    const int timeDoor = 3;
+    FSM_ElevatorInit(timeDoor);
     elevatorLoop();
 }

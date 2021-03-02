@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "hardware.h"
 #include "EventManager.h"
 
@@ -13,6 +14,7 @@ int main()
 
     while(1)
     {
+        fprintf(stderr, "Starting...\n");
         startElevatorSoftware();
         printf("Elevator software crash!\nRestarting...");
     }    

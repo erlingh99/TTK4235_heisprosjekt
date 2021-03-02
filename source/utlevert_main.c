@@ -19,7 +19,7 @@ static void clear_all_order_lights(){
 }
 
 
-int main(){
+int utlevert_main(){
     int error = hardware_init();
     if(error != 0){
         fprintf(stderr, "Unable to initialize hardware\n");
