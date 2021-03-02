@@ -1,8 +1,8 @@
 #include <time.h>
 #include <stddef.h>
-#include "Time.h"
+#include "TimeLib.h"
 
-int timeStamp;
+time_t timeStamp;
 int timeoutSecs;
 bool timerActive = false;
 
@@ -10,7 +10,7 @@ bool timerActive = false;
 void timerStart(int timeoutSeconds)
 {
     timerActive = true;
-    timeStamp = (int)time(NULL);
+    timeStamp = time(NULL);
     timeoutSecs = timeoutSeconds;
 }
 

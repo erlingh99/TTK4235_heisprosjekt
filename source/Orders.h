@@ -2,6 +2,7 @@
  * @file
  * @brief controls and stores which orders to be executed
  */
+#pragma once
 #include "hardware.h"
 
 /**

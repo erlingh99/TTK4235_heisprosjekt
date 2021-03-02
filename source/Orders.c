@@ -1,5 +1,3 @@
-
-#pragma once
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -11,34 +9,27 @@ int **orders_init()
     int** pp_orders = (int**)malloc(HARDWARE_NUMBER_OF_FLOORS*sizeof(int*));
     for (int pos = 0; pos<HARDWARE_NUMBER_OF_FLOORS; pos++)
         pp_orders[pos] = (int*)malloc(2*sizeof(int));
-    
-    for (int p1 = 0; p1<4; p1++)
-    {
-        for (int p2 = 0; p2<2; p2++)
-        {
-            pp_orders[p1][p2] = 0;
-            fprintf(stderr, "%d, ", pp_orders[p1][p2]);
-        }
-        fprintf(stderr, "\n");
-    }
+
     fprintf(stderr, "init orders done\n");
     return pp_orders;
 }
 
-
-void addOrder(int **list, int floor, HardwareOrder buttonType)
+void addOrder(int **list, int floor, HardwareOrder buttonType) //doesnt work for some reason
 {
     switch (buttonType)
     {
         case HARDWARE_ORDER_INSIDE:
             list[floor][0] = 1;
             list[floor][1] = 1; //Dir does not matter
+            fprintf(stderr, "order inside %d \n", floor);
             break;
         case HARDWARE_ORDER_UP:
             list[floor][1] = 1;
+            fprintf(stderr, "order up %d \n", list[floor][1]);
             break;
         case HARDWARE_ORDER_DOWN:
             list[floor][0] = 1;
+            fprintf(stderr, "order down %d \n", list[floor][1]);
             break;
     }
 }
@@ -117,6 +108,7 @@ int hasOrders(int **orders)
         {
             if(orders[floors][buttons] != 0)
             {
+                fprintf(stderr, "has orders");
                 return 1;
             }
         }

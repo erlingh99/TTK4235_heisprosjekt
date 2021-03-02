@@ -1,5 +1,5 @@
 #include "FSM_Elevator.h"
-#include "Time.h"
+#include "TimeLib.h"
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -14,7 +14,6 @@ void FSM_ElevatorInit(int doorOpenTime)
 
 void elevatorStateMachine()
 {
-    fprintf(stderr, "STATE: %d\n", e->elevatorState);
     switch (e->elevatorState)
     {
         case INIT:
@@ -22,6 +21,7 @@ void elevatorStateMachine()
             if (e->floor >= 0)
             {
                 e->elevatorState = IDLE;
+                fprintf(stderr, "STATE change: INIT->IDLE\n");
                 hardware_command_movement(HARDWARE_MOVEMENT_STOP);
             }
             break;
@@ -31,6 +31,7 @@ void elevatorStateMachine()
             if (err == 0 && hasOrders(e->orders))
             {
                 e->elevatorState = MOVING;
+                fprintf(stderr, "STATE change: IDLE->MOVING\n");
             }
             break;
         case MOVING:
@@ -38,6 +39,7 @@ void elevatorStateMachine()
             {
                 hardware_command_movement(HARDWARE_MOVEMENT_STOP);
                 e->elevatorState = IDLE;
+                fprintf(stderr, "STATE change: IDLE->MOVING\n");
                 openDoor();
                 orderCompleted(e->orders, e->floor);
 
@@ -67,8 +69,6 @@ void event_newOrder(int floor, HardwareOrder buttonType)
 {
     if (e->elevatorState == MOVING || e->elevatorState == IDLE)
     {
-        fprintf(stderr, "adding new order\n");
-
         addOrder(e->orders, floor, buttonType);
         hardware_command_order_light(floor, buttonType, 1);
     }
@@ -79,7 +79,6 @@ void event_floorSensorTriggered(int floor)
 {
     e->floor = floor;
     hardware_command_floor_indicator_on(floor);
-    fprintf(stderr, "floor sensor triggered\n");
 }
 
 
@@ -89,18 +88,33 @@ void event_stopButton(bool status)
     {
         hardware_command_stop_light(1);
         e->elevatorState = STOPPED;
+        fprintf(stderr, "STATE change: ->STOPPED\n");
         clearAllOrders(e->orders);
     }
     else if (!status && e->elevatorState == STOPPED)
     {
         hardware_command_stop_light(0);
         e->elevatorState = IDLE;
+        fprintf(stderr, "STATE change: STOPPED->IDLE\n");
     }
 }
 
 void event_obstruction(bool status)
 {
+    if (e->obstruction == status)
+        return;
+
+
     e->obstruction = status;
+        
+    for (int p1 = 0; p1<4; p1++)
+    {
+        for (int p2 = 0; p2<2; p2++)
+        {            
+            fprintf(stderr, "%d, ", e->orders[p1][p2]);
+        }
+        fprintf(stderr, "\n");
+    }
 }
 
 int openDoor()
@@ -117,10 +131,10 @@ int openDoor()
 
 int closeDoor()
 {
-    if ((checkTimeout() && !e->obstruction) || e->doorState == CLOSED)
+    if ((checkTimeout() && !e->obstruction))
     {
         hardware_command_door_open(0);
-        e->doorState == CLOSED;
+        e->doorState = CLOSED;
         return 0;
     }
     else if (e->obstruction && e->doorState == OPEN)

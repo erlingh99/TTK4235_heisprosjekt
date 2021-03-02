@@ -1,5 +1,5 @@
 SIM := true
-SOURCES := main.c Elevator.c EventManager.c FSM_Elevator.c Orders.c Time.c
+SOURCES := main.c Elevator.c EventManager.c FSM_Elevator.c Orders.c TimeLib.c
 
 SOURCE_DIR := source
 BUILD_DIR := build

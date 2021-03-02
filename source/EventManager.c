@@ -1,4 +1,3 @@
-#pragma once
 #include "hardware.h"
 #include "FSM_Elevator.h"
 #include <unistd.h>
@@ -27,12 +26,9 @@ void elevatorLoop()
                 }
             }
         }
-        fprintf(stderr, "entering state machine\n");
+
         elevatorStateMachine();
-        fprintf(stderr, "exiting state machine\nSleeping 1 sec\n");
 
-
-        sleep(1); //1 second might be too long
     }
 }
 
