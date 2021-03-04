@@ -52,6 +52,6 @@ Elevator* initElevator(int doorOpenTime);
 
 /**
  * @brief Frees the memory occupied by the elevator *e
- * @param[in, out] *e Pointer to the elevator to delete
+ * @param[in, out] e Pointer to the elevator to delete
  */
 void delElevator(Elevator* e);

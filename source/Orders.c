@@ -3,24 +3,40 @@
 #include <stdio.h>
 #include "Orders.h"
 
+//SEGMENTATION ERROR HAPPENS SOMETIMES!!
 
 int **orders_init()
 {
-    int** pp_orders = (int**)malloc(HARDWARE_NUMBER_OF_FLOORS*sizeof(int*));
+    int** pp_orders = malloc(HARDWARE_NUMBER_OF_FLOORS * sizeof **pp_orders);
+    if (pp_orders == NULL)
+    {
+        fprintf(stderr, "memory allocation failed.");
+        exit(0);
+    }
+    
     for (int pos = 0; pos<HARDWARE_NUMBER_OF_FLOORS; pos++)
-        pp_orders[pos] = (int*)malloc(2*sizeof(int));
-
+    {
+        pp_orders[pos] = calloc(2, sizeof pp_orders[pos]);        
+        if (pp_orders[pos] == NULL)
+        {
+            for (int i = 0; i<pos; i++)
+                free(pp_orders[pos]);
+            free(pp_orders);
+            fprintf(stderr, "memory allocation failed.");
+            exit(0);
+        }
+    }
     fprintf(stderr, "init orders done\n");
     return pp_orders;
 }
 
-void addOrder(int **list, int floor, HardwareOrder buttonType) //doesnt work for some reason
+void addOrder(int **list, int floor, HardwareOrder buttonType)
 {
     switch (buttonType)
     {
         case HARDWARE_ORDER_INSIDE:
             list[floor][0] = 1;
-            list[floor][1] = 1; //Dir does not matter
+            list[floor][1] = 1; //Direction does not matter
             fprintf(stderr, "order inside %d \n", floor);
             break;
         case HARDWARE_ORDER_UP:
@@ -108,7 +124,8 @@ int hasOrders(int **orders)
         {
             if(orders[floors][buttons] != 0)
             {
-                fprintf(stderr, "has orders");
+                fprintf(stderr, "%d", orders[floors][buttons]);
+                fprintf(stderr, " has orders\n");
                 return 1;
             }
         }

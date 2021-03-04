@@ -106,7 +106,7 @@ void event_obstruction(bool status)
 
 
     e->obstruction = status;
-        
+        //used for testing!!
     for (int p1 = 0; p1<4; p1++)
     {
         for (int p2 = 0; p2<2; p2++)

@@ -6,14 +6,10 @@ Elevator* initElevator(int doorOpenTime)
 {
     Elevator *elevator = (Elevator*)malloc(sizeof(Elevator));
     if (elevator == NULL)
-        return NULL;
-    /*    
-    elevator->orders = malloc(sizeof(Order));
-    if (elevator->orders == NULL)
     {
-        free(elevator);
-        return NULL;
-    }*/
+        fprintf(stderr, "elevator memory allocation failed");
+        exit(0);
+    }
     
     elevator->elevatorState = INIT;
     elevator->floor = -1;
@@ -31,7 +27,8 @@ void delElevator(Elevator *e)
 {
     if (e != NULL)
     {
-        free(e->orders);
+        for (int i = 0; i<HARDWARE_NUMBER_OF_FLOORS; i++)
+            free((e->orders)[i]);
         free(e);
     }
 }
