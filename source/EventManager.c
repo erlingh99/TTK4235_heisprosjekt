@@ -29,6 +29,10 @@ void elevatorLoop()
 
         elevatorStateMachine();
 
+        //sleep a bit, too long?
+        //OBS ikke støttet lenger
+        usleep(50000);
+
     }
 }
 

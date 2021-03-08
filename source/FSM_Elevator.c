@@ -11,9 +11,9 @@ void FSM_ElevatorInit(int doorOpenTime)
     e = initElevator(doorOpenTime);
 }
 
-
 void elevatorStateMachine()
 {
+    int currOrder;
     switch (e->elevatorState)
     {
         case INIT:
@@ -35,7 +35,8 @@ void elevatorStateMachine()
             }
             break;
         case MOVING:
-            if (e->floor == destination(e->orders, e->floor, e->direction))
+            currOrder = destination(e->orders, e->floor, e->direction);
+            if ((e->floor == currOrder) && atFloor())
             {
                 hardware_command_movement(HARDWARE_MOVEMENT_STOP);
                 e->elevatorState = IDLE;
@@ -46,12 +47,16 @@ void elevatorStateMachine()
                 for (int b = 0; b<HARDWARE_NUMBER_OF_BUTTONS; b++)
                     hardware_command_order_light(e->floor, b, 0);
             }
-            else if (e->floor < destination(e->orders, e->floor, e->direction))
+            else if (e->floor == currOrder) //only on recovering from stop
+            {
+                hardware_command_movement(e->direction);
+            }
+            else if (e->floor < currOrder)
             {
                 hardware_command_movement(HARDWARE_MOVEMENT_UP);
                 e->direction = HARDWARE_MOVEMENT_UP;
             }
-            else if (e->floor > destination(e->orders, e->floor, e->direction))
+            else if (e->floor > currOrder)
             {
                 hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
                 e->direction = HARDWARE_MOVEMENT_DOWN;
@@ -90,6 +95,11 @@ void event_stopButton(bool status)
         e->elevatorState = STOPPED;
         fprintf(stderr, "STATE change: ->STOPPED\n");
         clearAllOrders(e->orders);
+        for (int f = 0; f<HARDWARE_NUMBER_OF_FLOORS; f++)
+        {
+            for (int b = 0; b<HARDWARE_NUMBER_OF_BUTTONS; b++)
+                hardware_command_order_light(f, b, 0);
+        }
     }
     else if (!status && e->elevatorState == STOPPED)
     {
@@ -103,18 +113,7 @@ void event_obstruction(bool status)
 {
     if (e->obstruction == status)
         return;
-
-
     e->obstruction = status;
-        //used for testing!!
-    for (int p1 = 0; p1<4; p1++)
-    {
-        for (int p2 = 0; p2<2; p2++)
-        {            
-            fprintf(stderr, "%d, ", e->orders[p1][p2]);
-        }
-        fprintf(stderr, "\n");
-    }
 }
 
 int openDoor()

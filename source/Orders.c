@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include "Orders.h"
 
-//SEGMENTATION ERROR HAPPENS SOMETIMES!!
 
 int **orders_init()
 {
@@ -19,10 +18,10 @@ int **orders_init()
         pp_orders[pos] = calloc(2, sizeof pp_orders[pos]);        
         if (pp_orders[pos] == NULL)
         {
+            fprintf(stderr, "memory allocation failed.");
             for (int i = 0; i<pos; i++)
                 free(pp_orders[pos]);
             free(pp_orders);
-            fprintf(stderr, "memory allocation failed.");
             exit(0);
         }
     }
@@ -32,27 +31,33 @@ int **orders_init()
 
 void addOrder(int **list, int floor, HardwareOrder buttonType)
 {
+
+
     switch (buttonType)
     {
-        case HARDWARE_ORDER_INSIDE:
+        case HARDWARE_ORDER_INSIDE:            
+            if (!(list[floor][0] && list[floor][1]))
+                fprintf(stderr, "new order at floor %d, type inside \n", floor);
             list[floor][0] = 1;
-            list[floor][1] = 1; //Direction does not matter
-            fprintf(stderr, "order inside %d \n", floor);
+            list[floor][1] = 1; //Direction does not matter            
             break;
         case HARDWARE_ORDER_UP:
+            if (!list[floor][1])
+                fprintf(stderr, "new order at floor %d, type up \n", floor);
             list[floor][1] = 1;
-            fprintf(stderr, "order up %d \n", list[floor][1]);
             break;
+
         case HARDWARE_ORDER_DOWN:
-            list[floor][0] = 1;
-            fprintf(stderr, "order down %d \n", list[floor][1]);
+            if (!list[floor][0])
+                fprintf(stderr, "new order at floor %d, type down \n", floor);
+            list[floor][0] = 1;            
             break;
     }
 }
 
 int destination(int **orders, int floor, HardwareMovement dir)
 {
-    fprintf(stderr, "finding dest \n");
+    //fprintf(stderr, "finding dest \n");
     int dest;
     switch (dir)
     {
@@ -78,13 +83,17 @@ int destination(int **orders, int floor, HardwareMovement dir)
                 dest = checkDown(orders, HARDWARE_NUMBER_OF_FLOORS);
             break;            
     }
-    fprintf(stderr, "dest found: %d \n", dest);
+    if (dest == -1)
+        fprintf(stderr, "dest found negative error");
+
+    //fprintf(stderr, "dest found: %d \n", dest);
     return dest;
 }
 
 int checkDown(int **orders, int floor)
 {
-    for (int fl = floor; fl>=0 ; fl--)
+    //fprintf(stderr, "Check down \n");
+    for (int fl = floor-1; fl>=0 ; fl--)
     {
         if (orders[fl][0] == 1)
             return fl;
@@ -95,6 +104,7 @@ int checkDown(int **orders, int floor)
 
 int checkUp(int **orders, int floor)
 {
+    //fprintf(stderr, "Check up\n");
     for (int fl = floor; fl<HARDWARE_NUMBER_OF_FLOORS; fl++)
     {
         if (orders[fl][1] == 1)
@@ -114,6 +124,7 @@ void clearAllOrders(int **orders)
             orders[f][b] = 0;
         }
     }
+    fprintf(stderr, "All orders cleared\n");
 }
 
 int hasOrders(int **orders)
@@ -124,8 +135,7 @@ int hasOrders(int **orders)
         {
             if(orders[floors][buttons] != 0)
             {
-                fprintf(stderr, "%d", orders[floors][buttons]);
-                fprintf(stderr, " has orders\n");
+                //fprintf(stderr, "Has order floor %d\n", orders[floors][buttons]);
                 return 1;
             }
         }
@@ -135,6 +145,7 @@ int hasOrders(int **orders)
 
 void orderCompleted(int **orderList, int floor)
 {
+    fprintf(stderr, "clearing order floor %d\n", floor);
     orderList[floor][0] = 0;
     orderList[floor][1] = 0; //everyone on the floor boards the elevator regardless of dir
 }
