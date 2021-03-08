@@ -1,6 +1,5 @@
 #include "hardware.h"
 #include "FSM_Elevator.h"
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -28,11 +27,6 @@ void elevatorLoop()
         }
 
         elevatorStateMachine();
-
-        //sleep a bit, too long?
-        //OBS ikke støttet lenger
-        usleep(50000);
-
     }
 }
 

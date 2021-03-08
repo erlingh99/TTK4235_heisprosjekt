@@ -12,11 +12,7 @@ int main()
         exit(1);
     }
 
-    while(1)
-    {
-        fprintf(stderr, "Starting...\n");
-        startElevatorSoftware();
-        printf("Elevator software crash!\nRestarting...");
-    }    
+    fprintf(stderr, "Starting...\n");
+    startElevatorSoftware(); 
     return 0;
 }

@@ -2,8 +2,8 @@
 #include <stddef.h>
 #include "TimeLib.h"
 
-time_t timeStamp;
-int timeoutSecs;
+time_t timeStamp = 0;
+int timeoutSecs = 0;
 bool timerActive = false;
 
 

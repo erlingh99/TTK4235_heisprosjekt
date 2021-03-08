@@ -55,8 +55,7 @@ void addOrder(int **list, int floor, HardwareOrder buttonType)
 
 int destination(int **orders, int floor, HardwareMovement dir)
 {
-    //fprintf(stderr, "finding dest \n");
-    int dest;
+    int dest = -1;
     switch (dir)
     {
         case HARDWARE_MOVEMENT_UP:
@@ -82,9 +81,8 @@ int destination(int **orders, int floor, HardwareMovement dir)
             break;            
     }
     if (dest == -1)
-        fprintf(stderr, "dest found negative error");
-
-    //fprintf(stderr, "dest found: %d \n", dest);
+        fprintf(stderr, "dest found negative error"); //should never happen
+    
     return dest;
 }
 

@@ -16,7 +16,9 @@ Elevator* initElevator(int doorOpenTime)
     elevator->doorOpenTime = doorOpenTime;
     elevator->doorState = CLOSED;
     elevator->direction = HARDWARE_MOVEMENT_DOWN;
+    elevator->obstruction = false;
     elevator->orders = orders_init();
+    elevator->moved = false;
 
     fprintf(stderr, "elevator init done\n");
 

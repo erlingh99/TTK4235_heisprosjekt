@@ -49,8 +49,16 @@ int destination(int **orderList, int currentFloor, HardwareMovement dir);
  */
 int hasOrders(int **orderlist);
 
-
+/**
+ * @brief Finds the first order above @p floor in direction UP.
+ * @param[in] orderList Double pointer to the elevator's orderlist
+ * @return floor number of the first order above in upwards direction, -1 if no orders exist.
+ */
 int checkUp(int** orderList, int floor);
 
-
+/**
+ * @brief Finds the first order below @p floor in direction DOWN.
+ * @param[in] orderList Double pointer to the elevator's orderlist
+ * @return floor number of the first order below in downwards direction, -1 if no orders exist.
+ */
 int checkDown(int** orderList, int floor);
