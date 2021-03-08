@@ -13,7 +13,6 @@ void FSM_ElevatorInit(int doorOpenTime)
 
 void elevatorStateMachine()
 {
-    int currOrder;
     switch (e->elevatorState)
     {
         case INIT:
@@ -26,7 +25,7 @@ void elevatorStateMachine()
             }
             break;
         case IDLE:
-            e->direction = HARDWARE_MOVEMENT_STOP;
+
             closeDoor();
             if (e->doorState == CLOSED && hasOrders(e->orders))
             {
@@ -35,10 +34,12 @@ void elevatorStateMachine()
             }
             break;
         case MOVING:
-            currOrder = destination(e->orders, e->floor, e->direction);
+        { //curly braces to define scope of currOrder
+            int currOrder = destination(e->orders, e->floor, e->direction);
             if ((e->floor == currOrder) && atFloor())
             {
                 hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+                e->direction = HARDWARE_MOVEMENT_STOP;
                 e->elevatorState = IDLE;
                 fprintf(stderr, "STATE change: MOVING->IDLE\n");
                 openDoor();
@@ -47,9 +48,12 @@ void elevatorStateMachine()
                 for (int b = 0; b<HARDWARE_NUMBER_OF_BUTTONS; b++)
                     hardware_command_order_light(e->floor, b, 0);
             }
-            else if (e->floor == currOrder) //only on recovering from stop
-            {
-                hardware_command_movement(e->direction);
+            else if (e->floor == currOrder) 
+            {//This will only be executed on recovering from stop and going to prev floor
+                if (e->direction == HARDWARE_MOVEMENT_UP)
+                    hardware_command_movement(HARDWARE_MOVEMENT_DOWN); //opposite dir
+                else
+                    hardware_command_movement(HARDWARE_MOVEMENT_UP);
             }
             else if (e->floor < currOrder)
             {
@@ -61,10 +65,10 @@ void elevatorStateMachine()
                 hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
                 e->direction = HARDWARE_MOVEMENT_DOWN;
             }
-            break; 
+            break;
+        }
         case STOPPED:
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-            e->direction = HARDWARE_MOVEMENT_STOP;
             openDoor(); //keeps the door open if the elevator is stopped at a floor
             break;
     }
