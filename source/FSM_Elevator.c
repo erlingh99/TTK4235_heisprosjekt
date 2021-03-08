@@ -63,9 +63,15 @@ void elevatorStateMachine()
             {                
                 //Stopped between floors and having order back to prev floor
                 if (e->direction == HARDWARE_MOVEMENT_UP)
+                {
                     hardware_command_movement(HARDWARE_MOVEMENT_DOWN); //opposite dir
+                    e->direction = HARDWARE_MOVEMENT_DOWN;
+                }
                 else
+                {
                     hardware_command_movement(HARDWARE_MOVEMENT_UP);                                            
+                    e->direction = HARDWARE_MOVEMENT_UP;
+                }
             }
             e->moved = true;
             break;
