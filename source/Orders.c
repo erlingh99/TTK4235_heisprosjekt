@@ -8,7 +8,7 @@ int **orders_init()
 {
     int** pp_orders = malloc(HARDWARE_NUMBER_OF_FLOORS * sizeof **pp_orders);
     if (pp_orders == NULL)
-    {
+    {   //error handling
         fprintf(stderr, "memory allocation failed.");
         exit(0);
     }
@@ -16,8 +16,8 @@ int **orders_init()
     for (int pos = 0; pos<HARDWARE_NUMBER_OF_FLOORS; pos++)
     {
         pp_orders[pos] = calloc(2, sizeof pp_orders[pos]);        
-        if (pp_orders[pos] == NULL)
-        {
+        if (pp_orders[pos] == NULL) 
+        {   //error handling
             fprintf(stderr, "memory allocation failed.");
             for (int i = 0; i<pos; i++)
                 free(pp_orders[pos]);
@@ -31,8 +31,6 @@ int **orders_init()
 
 void addOrder(int **list, int floor, HardwareOrder buttonType)
 {
-
-
     switch (buttonType)
     {
         case HARDWARE_ORDER_INSIDE:            
@@ -64,7 +62,7 @@ int destination(int **orders, int floor, HardwareMovement dir)
         case HARDWARE_MOVEMENT_UP:
             dest = checkUp(orders, floor);
             if (dest == -1)
-                dest = checkDown(orders, HARDWARE_NUMBER_OF_FLOORS);
+                dest = checkDown(orders, HARDWARE_NUMBER_OF_FLOORS-1);
             if (dest == -1)
                 dest = checkUp(orders, 0);
             break;
@@ -74,13 +72,13 @@ int destination(int **orders, int floor, HardwareMovement dir)
             if (dest == -1)
                 dest = checkUp(orders, 0);
             if (dest == -1)
-                dest = checkDown(orders, HARDWARE_NUMBER_OF_FLOORS);
+                dest = checkDown(orders, HARDWARE_NUMBER_OF_FLOORS-1);
             break;
             
         default:
             dest = checkUp(orders, 0);
             if (dest == -1)
-                dest = checkDown(orders, HARDWARE_NUMBER_OF_FLOORS);
+                dest = checkDown(orders, HARDWARE_NUMBER_OF_FLOORS-1);
             break;            
     }
     if (dest == -1)
@@ -93,7 +91,7 @@ int destination(int **orders, int floor, HardwareMovement dir)
 int checkDown(int **orders, int floor)
 {
     //fprintf(stderr, "Check down \n");
-    for (int fl = floor-1; fl>=0 ; fl--)
+    for (int fl = floor; fl>=0 ; fl--)
     {
         if (orders[fl][0] == 1)
             return fl;
