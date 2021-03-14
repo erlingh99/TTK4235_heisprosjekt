@@ -53,6 +53,31 @@ void addOrder(int **list, int floor, HardwareOrder buttonType)
     }
 }
 
+//internal function
+int checkDown(int **orders, int floor)
+{
+    for (int fl = floor; fl>=0 ; fl--)
+    {
+        if (orders[fl][0] == 1)
+            return fl;
+        
+    }
+    return -1;
+}
+
+//internal function
+int checkUp(int **orders, int floor)
+{
+    for (int fl = floor; fl<HARDWARE_NUMBER_OF_FLOORS; fl++)
+    {
+        if (orders[fl][1] == 1)
+        {
+            return fl; 
+        }
+    }
+    return -1;
+}
+
 int destination(int **orders, int floor, HardwareMovement dir)
 {
     int dest = -1;
@@ -84,31 +109,6 @@ int destination(int **orders, int floor, HardwareMovement dir)
         fprintf(stderr, "dest found negative error"); //should never happen
     
     return dest;
-}
-
-int checkDown(int **orders, int floor)
-{
-    //fprintf(stderr, "Check down \n");
-    for (int fl = floor; fl>=0 ; fl--)
-    {
-        if (orders[fl][0] == 1)
-            return fl;
-        
-    }
-    return -1;
-}
-
-int checkUp(int **orders, int floor)
-{
-    //fprintf(stderr, "Check up\n");
-    for (int fl = floor; fl<HARDWARE_NUMBER_OF_FLOORS; fl++)
-    {
-        if (orders[fl][1] == 1)
-        {
-            return fl; 
-        }
-    }
-    return -1;
 }
 
 void clearAllOrders(int **orders)

@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "Elevator.h"
+#include "TimeLib.h"
 
 Elevator* initElevator(int doorOpenTime)
 {
@@ -33,4 +34,41 @@ void delElevator(Elevator *e)
             free((e->orders)[i]);
         free(e);
     }
+}
+
+int openDoor(Elevator *e)
+{
+    if(atFloor())
+    {
+        timerStart(e->doorOpenTime);
+        hardware_command_door_open(1);
+        e->doorState = OPEN;
+        return 0;
+    }
+    return 1;
+}
+
+int closeDoor(Elevator* e)
+{
+    if ((checkTimeout() && !e->obstruction))
+    {
+        hardware_command_door_open(0);
+        e->doorState = CLOSED;
+        return 0;
+    }
+    else if (e->obstruction && e->doorState == OPEN)
+    {
+        openDoor(e); //resets the timer for closing the door
+    }
+    return 1;
+}
+
+int atFloor()
+{
+    for (int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++)
+    {
+        if (hardware_read_floor_sensor(f) == 1)
+            return 1;
+    }
+    return 0;
 }

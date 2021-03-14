@@ -56,3 +56,24 @@ Elevator* initElevator(int doorOpenTime);
  * @param[in, out] e Pointer to the elevator to delete
  */
 void delElevator(Elevator* e);
+
+/**
+ * @brief Tries to open the door of elevator @p e.
+ * @param[in, out] e Pointer to the elevator which door shall be opened
+ * @return @c int indicating success (0) or failure (1)
+ */
+int openDoor(Elevator* e);
+
+/**
+ * @brief Closes the door of elevator @p e. If it is already closed, this function does nothing.
+ * @param[in, out] e Pointer to the elevator which door shall be closed
+ * @return @c int indicating success (0) or failure (1)
+ */
+int closeDoor(Elevator* e);
+
+
+/**
+ * @brief Checks if the elevator is at a floor.
+ * @return 1 if yes, 0 if not
+ */
+int atFloor();

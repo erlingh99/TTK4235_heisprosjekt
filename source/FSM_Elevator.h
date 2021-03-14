@@ -40,22 +40,3 @@ void event_stopButton(bool status);
  * @brief Called when the obstuction sensor is triggered. Handles the event.
  */
 void event_obstruction(bool status);
-
-/**
- * @brief Tries to open the elevator door.
- * @return @c int indicating success (0) or failure (1)
- */
-int openDoor();
-
-/**
- * @brief Closes the door. If it is already closed, this function does nothing.
- * @return @c int indicating success (0) or failure (1)
- */
-int closeDoor();
-
-
-/**
- * @brief Checks if the elevator is at a floor.
- * @return 1 if yes, 0 if not
- */
-int atFloor();

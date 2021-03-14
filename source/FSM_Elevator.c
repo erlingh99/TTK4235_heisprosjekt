@@ -1,5 +1,4 @@
 #include "FSM_Elevator.h"
-#include "TimeLib.h"
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -25,7 +24,7 @@ void elevatorStateMachine()
             }
             break;
         case IDLE:
-            closeDoor();
+            closeDoor(e);
             if (e->doorState == CLOSED && hasOrders(e->orders))
             {
                 e->elevatorState = MOVING;                
@@ -43,7 +42,7 @@ void elevatorStateMachine()
                 hardware_command_movement(HARDWARE_MOVEMENT_STOP);
                 e->elevatorState = IDLE;
                 fprintf(stderr, "STATE change: MOVING->IDLE\n");
-                openDoor();
+                openDoor(e);
                 orderCompleted(e->orders, e->floor);
 
                 for (int b = 0; b<HARDWARE_NUMBER_OF_BUTTONS; b++)
@@ -78,7 +77,7 @@ void elevatorStateMachine()
         }
         case STOPPED:
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-            openDoor(); //keeps the door open if the elevator is stopped at a floor
+            openDoor(e); //keeps the door open if the elevator is stopped at a floor
             e->moved = false;
             break;
     }
@@ -125,41 +124,4 @@ void event_stopButton(bool status)
 void event_obstruction(bool status) //set obstruction flag
 {
     e->obstruction = status;
-}
-
-int openDoor()
-{
-    if(atFloor())
-    {
-        timerStart(e->doorOpenTime);
-        hardware_command_door_open(1);
-        e->doorState = OPEN;
-        return 0;
-    }
-    return 1;
-}
-
-int closeDoor()
-{
-    if ((checkTimeout() && !e->obstruction))
-    {
-        hardware_command_door_open(0);
-        e->doorState = CLOSED;
-        return 0;
-    }
-    else if (e->obstruction && e->doorState == OPEN)
-    {
-        openDoor(); //resets the timer for closing the door
-    }
-    return 1;
-}
-
-int atFloor()
-{
-    for (int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++)
-    {
-        if (hardware_read_floor_sensor(f) == 1)
-            return 1;
-    }
-    return 0;
 }
