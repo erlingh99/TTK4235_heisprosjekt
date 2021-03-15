@@ -36,6 +36,7 @@ void addOrder(int **list, int floor, HardwareOrder buttonType)
         case HARDWARE_ORDER_INSIDE:            
             if (!(list[floor][0] && list[floor][1]))
                 fprintf(stderr, "new order at floor %d, type inside \n", floor);
+                
             list[floor][0] = 1;
             list[floor][1] = 1; //Direction does not matter            
             break;
@@ -78,7 +79,7 @@ int checkUp(int **orders, int floor)
     return -1;
 }
 
-int destination(int **orders, int floor, HardwareMovement dir)
+int findDestination(int **orders, int floor, HardwareMovement dir)
 {
     int dest = -1;
     switch (dir)
@@ -106,7 +107,7 @@ int destination(int **orders, int floor, HardwareMovement dir)
             break;            
     }
     if (dest == -1)
-        fprintf(stderr, "dest found negative error"); //should never happen
+        fprintf(stderr, "ERROR negative destination"); //should never happen
     
     return dest;
 }

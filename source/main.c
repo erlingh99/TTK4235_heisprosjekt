@@ -13,6 +13,6 @@ int main()
     }
 
     fprintf(stderr, "Starting...\n");
-    startElevatorSoftware(); 
+    runElevatorSoftware(); 
     return 0;
 }

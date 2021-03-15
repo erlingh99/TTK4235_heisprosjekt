@@ -1,9 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "Orders.h"
 #include "Elevator.h"
 #include "TimeLib.h"
 
-Elevator* initElevator(int doorOpenTime)
+Elevator* initElevator()
 {
     Elevator *elevator = (Elevator*)malloc(sizeof(Elevator));
     if (elevator == NULL)
@@ -14,7 +15,7 @@ Elevator* initElevator(int doorOpenTime)
     
     elevator->elevatorState = INIT;
     elevator->floor = -1;
-    elevator->doorOpenTime = doorOpenTime;
+    elevator->doorOpenTime = doorTime;
     elevator->doorState = CLOSED;
     elevator->direction = HARDWARE_MOVEMENT_DOWN;
     elevator->obstruction = false;
@@ -26,39 +27,39 @@ Elevator* initElevator(int doorOpenTime)
     return elevator;
 }
 
-void delElevator(Elevator *e)
+void delElevator(Elevator *p_elevator)
 {
-    if (e != NULL)
+    if (p_elevator != NULL)
     {
         for (int i = 0; i<HARDWARE_NUMBER_OF_FLOORS; i++)
-            free((e->orders)[i]);
-        free(e);
+            free((p_elevator->orders)[i]);
+        free(p_elevator);
     }
 }
 
-int openDoor(Elevator *e)
+int openDoor(Elevator *p_elevator)
 {
     if(atFloor())
     {
-        timerStart(e->doorOpenTime);
+        timerStart(p_elevator->doorOpenTime);
         hardware_command_door_open(1);
-        e->doorState = OPEN;
+        p_elevator->doorState = OPEN;
         return 0;
     }
     return 1;
 }
 
-int closeDoor(Elevator* e)
+int closeDoor(Elevator* p_elevator)
 {
-    if ((checkTimeout() && !e->obstruction))
+    if ((checkTimeout() && !p_elevator->obstruction))
     {
         hardware_command_door_open(0);
-        e->doorState = CLOSED;
+        p_elevator->doorState = CLOSED;
         return 0;
     }
-    else if (e->obstruction && e->doorState == OPEN)
+    else if (p_elevator->obstruction && p_elevator->doorState == OPEN)
     {
-        openDoor(e); //resets the timer for closing the door
+        openDoor(p_elevator); //resets the timer for closing the door
     }
     return 1;
 }

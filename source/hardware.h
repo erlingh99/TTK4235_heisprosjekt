@@ -71,20 +71,20 @@ int hardware_read_floor_sensor(int floor);
  * floor @p floor of type @p order_type.
  *
  * @param floor Inquired floor.
- * @param order_type
+ * @param orderType
  *
  * @return 1 if the combination of @p floor and @p order_type
  * is being requested, otherwise 0.
  */
-int hardware_read_order(int floor, HardwareOrder order_type);
+int hardware_read_order(int floor, HardwareOrder orderType);
 
 /**
  * @brief Commands the hardware to open- or close the elevator door.
  *
- * @param door_open A truthy value (non-zero) to open the door;
+ * @param doorOpen A truthy value (non-zero) to open the door;
  * 0 to close.
  */
-void hardware_command_door_open(int door_open);
+void hardware_command_door_open(int doorOpen);
 
 /**
  * @brief Commands the hardware to turn on the floor indicator
@@ -112,10 +112,10 @@ void hardware_command_stop_light(int on);
  * of type @p order_type, at floor @p floor.
  *
  * @param floor The floor of the order indicator.
- * @param order_type The type of order.
+ * @param orderType The type of order.
  * @param on A truthy value (non-zero) to turn the light on;
  * 0 to turn it off.
  */
-void hardware_command_order_light(int floor, HardwareOrder order_type, int on);
+void hardware_command_order_light(int floor, HardwareOrder orderType, int on);
 
 #endif

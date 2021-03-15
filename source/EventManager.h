@@ -16,4 +16,4 @@ void elevatorLoop();
 /**
  * @brief initialises all software and calls the program execution loop
  */
-void startElevatorSoftware();
+void runElevatorSoftware();

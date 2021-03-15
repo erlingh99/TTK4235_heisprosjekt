@@ -1,111 +1,112 @@
 #include "FSM_Elevator.h"
+#include "Orders.h"
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 
-Elevator *e;
+Elevator *p_elevator;
 
-void FSM_ElevatorInit(int doorOpenTime)
+void FSM_ElevatorInit()
 {
-    e = initElevator(doorOpenTime);
+    p_elevator = initElevator();
 }
 
 void elevatorStateMachine()
 {
-    switch (e->elevatorState)
+    switch (p_elevator->elevatorState)
     {
         case INIT:
             hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
-            if (e->floor >= 0)
+            if (p_elevator->floor >= 0) //e->floor is -1 untill floor sensor is triggered
             {
-                e->elevatorState = IDLE;
+                p_elevator->elevatorState = IDLE;
                 fprintf(stderr, "STATE change: INIT->IDLE\n");
                 hardware_command_movement(HARDWARE_MOVEMENT_STOP);
             }
             break;
         case IDLE:
-            closeDoor(e);
-            if (e->doorState == CLOSED && hasOrders(e->orders))
+            closeDoor(p_elevator);
+            if (p_elevator->doorState == CLOSED && hasOrders(p_elevator->orders))
             {
-                e->elevatorState = MOVING;                
+                p_elevator->elevatorState = MOVING;                
                 fprintf(stderr, "STATE change: IDLE->MOVING\n");
             }
             break;
         case MOVING:
         { //curly braces to define scope of currOrder
-            int currOrder = destination(e->orders, e->floor, e->direction);
+            int currOrder = findDestination(p_elevator->orders, p_elevator->floor, p_elevator->direction);
             if (currOrder == -1)
                 exit(0);
             
-            if ((e->floor == currOrder) && atFloor())
+            if ((p_elevator->floor == currOrder) && atFloor())
             {
                 hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-                e->elevatorState = IDLE;
+                p_elevator->elevatorState = IDLE;
                 fprintf(stderr, "STATE change: MOVING->IDLE\n");
-                openDoor(e);
-                orderCompleted(e->orders, e->floor);
+                openDoor(p_elevator);
+                orderCompleted(p_elevator->orders, p_elevator->floor);
 
                 for (int b = 0; b<HARDWARE_NUMBER_OF_BUTTONS; b++)
-                    hardware_command_order_light(e->floor, b, 0);
+                    hardware_command_order_light(p_elevator->floor, b, 0);
             }
-            else if (e->floor < currOrder)
+            else if (p_elevator->floor < currOrder)
             {
                 hardware_command_movement(HARDWARE_MOVEMENT_UP);
-                e->direction = HARDWARE_MOVEMENT_UP;
+                p_elevator->direction = HARDWARE_MOVEMENT_UP;
             }
-            else if (e->floor > currOrder)
+            else if (p_elevator->floor > currOrder)
             {
                 hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
-                e->direction = HARDWARE_MOVEMENT_DOWN;
+                p_elevator->direction = HARDWARE_MOVEMENT_DOWN;
             }
-            else if (e->floor == currOrder && !e->moved)
+            else if (p_elevator->floor == currOrder && !p_elevator->moved)
             {                
                 //Stopped between floors and having order back to prev floor
-                if (e->direction == HARDWARE_MOVEMENT_UP)
+                if (p_elevator->direction == HARDWARE_MOVEMENT_UP)
                 {
                     hardware_command_movement(HARDWARE_MOVEMENT_DOWN); //opposite dir
-                    e->direction = HARDWARE_MOVEMENT_DOWN;
+                    p_elevator->direction = HARDWARE_MOVEMENT_DOWN;
                 }
                 else
                 {
                     hardware_command_movement(HARDWARE_MOVEMENT_UP);                                            
-                    e->direction = HARDWARE_MOVEMENT_UP;
+                    p_elevator->direction = HARDWARE_MOVEMENT_UP;
                 }
             }
-            e->moved = true;
+            p_elevator->moved = true;
             break;
         }
         case STOPPED:
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-            openDoor(e); //keeps the door open if the elevator is stopped at a floor
-            e->moved = false;
+            openDoor(p_elevator); //keeps the door open if the elevator is stopped at a floor
+            p_elevator->moved = false;
             break;
     }
 }
 
 void event_newOrder(int floor, HardwareOrder buttonType)
 {
-    if (e->elevatorState == MOVING || e->elevatorState == IDLE)
+    if (p_elevator->elevatorState == MOVING || p_elevator->elevatorState == IDLE)
     {
-        addOrder(e->orders, floor, buttonType);
+        addOrder(p_elevator->orders, floor, buttonType);
         hardware_command_order_light(floor, buttonType, 1);
     }
 }
 
 void event_floorSensorTriggered(int floor)
 {
-    e->floor = floor;
+    p_elevator->floor = floor;
     hardware_command_floor_indicator_on(floor);
 }
 
 void event_stopButton(bool status)
 {
-    if (status && e->elevatorState != STOPPED)
+    if (status && p_elevator->elevatorState != STOPPED)
     {
         hardware_command_stop_light(1);
-        e->elevatorState = STOPPED;
+        p_elevator->elevatorState = STOPPED;
         fprintf(stderr, "STATE change: ->STOPPED\n");
-        clearAllOrders(e->orders);
+        clearAllOrders(p_elevator->orders);
         //clear lights
         for (int f = 0; f<HARDWARE_NUMBER_OF_FLOORS; f++)
         {
@@ -113,15 +114,15 @@ void event_stopButton(bool status)
                 hardware_command_order_light(f, b, 0);
         }
     }
-    else if (!status && e->elevatorState == STOPPED)
+    else if (!status && p_elevator->elevatorState == STOPPED)
     {
         hardware_command_stop_light(0);
-        e->elevatorState = IDLE;
+        p_elevator->elevatorState = IDLE;
         fprintf(stderr, "STATE change: STOPPED->IDLE\n");
     }
 }
 
 void event_obstruction(bool status) //set obstruction flag
 {
-    e->obstruction = status;
+    p_elevator->obstruction = status;
 }

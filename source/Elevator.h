@@ -4,8 +4,9 @@
  */
 #pragma once
 #include "hardware.h"
-#include "Orders.h"
 #include <stdbool.h>
+
+#define doorTime 3
 
 /**
  *  @brief @c enum ElevatorState describes the state the elevator is in.
@@ -45,31 +46,30 @@ typedef struct {
 
 /**
  * @brief Initialises the elevator
- * @param[in] doorOpenTime Sets the number of seconds the elevator door remains open.
  * @return @c Elevator* pointer to the elevator struct.
  * @warning The returned elevator is not in a consistent state
  */
-Elevator* initElevator(int doorOpenTime);
+Elevator* initElevator();
 
 /**
- * @brief Frees the memory occupied by the elevator *e
- * @param[in, out] e Pointer to the elevator to delete
+ * @brief Frees the memory occupied by the elevator pointed to by @p p_elevator
+ * @param[in, out] p_elevator Pointer to the elevator to delete
  */
-void delElevator(Elevator* e);
+void delElevator(Elevator* p_elevator);
 
 /**
- * @brief Tries to open the door of elevator @p e.
- * @param[in, out] e Pointer to the elevator which door shall be opened
+ * @brief Tries to open the door of elevator pointed to by @p p_elevator.
+ * @param[in, out] p_elevator Pointer to the elevator which door shall be opened
  * @return @c int indicating success (0) or failure (1)
  */
-int openDoor(Elevator* e);
+int openDoor(Elevator* p_elevator);
 
 /**
- * @brief Closes the door of elevator @p e. If it is already closed, this function does nothing.
- * @param[in, out] e Pointer to the elevator which door shall be closed
+ * @brief Closes the door of elevator pointed to by @p p_elevator. If it is already closed, this function does nothing.
+ * @param[in, out] p_elevator Pointer to the elevator which door shall be closed
  * @return @c int indicating success (0) or failure (1)
  */
-int closeDoor(Elevator* e);
+int closeDoor(Elevator* p_elevator);
 
 
 /**

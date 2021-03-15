@@ -1,12 +1,13 @@
-#include "hardware.h"
 #include "FSM_Elevator.h"
+#include "EventManager.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 void elevatorLoop()
 {
     while (1)
-    {
+    {   
+        //polling
         event_stopButton(hardware_read_stop_signal());
         event_obstruction(hardware_read_obstruction_signal());
 
@@ -25,15 +26,14 @@ void elevatorLoop()
                 }
             }
         }
-
+        //polling done
         elevatorStateMachine();
     }
 }
 
 
-void startElevatorSoftware()
+void runElevatorSoftware()
 {
-    const int timeDoor = 3;
-    FSM_ElevatorInit(timeDoor);
+    FSM_ElevatorInit();
     elevatorLoop();
 }

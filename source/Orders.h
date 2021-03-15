@@ -3,7 +3,7 @@
  * @brief controls and stores which orders to be executed
  */
 #pragma once
-#include "hardware.h"
+#include "Elevator.h"
 
 /**
  * @brief intializes the list of orders
@@ -27,7 +27,7 @@ void addOrder(int **orderList, int floor, HardwareOrder buttonType);
 void clearAllOrders(int **orderList);
 
 /**
- * @brief checks if the order on top of the orderlist is excuted
+ * @brief Regsiters orders at @p floor as completed.
  * @param[in, out] orderList Double pointer to the elevator's orderlist
  * @param[in] floor The floor which the order directed the elevator to
  */
@@ -40,7 +40,7 @@ void orderCompleted(int **orderList, int floor);
  * @param[in] dir The direction the elevator is already moving
  * @return @c int representing the destination floor 
  */
-int destination(int **orderList, int currentFloor, HardwareMovement dir);
+int findDestination(int **orderList, int currentFloor, HardwareMovement dir);
 
 /**
  * @brief Checks if there are more orders.
