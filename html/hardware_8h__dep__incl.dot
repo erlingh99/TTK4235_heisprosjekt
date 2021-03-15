@@ -1,0 +1,31 @@
+digraph "source/hardware.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="source/hardware.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="source/Elevator.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Elevator_8h.html",tooltip="File describing the elevator type and helping types. "];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="source/Elevator.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Elevator_8c_source.html"];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="source/FSM_Elevator.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$FSM__Elevator_8h.html",tooltip="The state-machine of the elevator. "];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="source/EventManager.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$EventManager_8c_source.html"];
+  Node4 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="source/FSM_Elevator.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$FSM__Elevator_8c_source.html"];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="source/Orders.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Orders_8h.html",tooltip="controls and stores which orders to be executed "];
+  Node7 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="source/Orders.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Orders_8c_source.html"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="source/EventManager.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$EventManager_8h.html",tooltip="The eventmanager reacts to events and delegates. "];
+  Node9 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="source/main.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c_source.html"];
+  Node1 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="source/utlevert_main.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$utlevert__main_8c_source.html"];
+}

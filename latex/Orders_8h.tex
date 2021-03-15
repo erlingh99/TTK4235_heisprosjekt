@@ -1,0 +1,163 @@
+\hypertarget{Orders_8h}{}\section{source/\+Orders.h File Reference}
+\label{Orders_8h}\index{source/\+Orders.\+h@{source/\+Orders.\+h}}
+
+
+controls and stores which orders to be executed  
+
+
+{\ttfamily \#include \char`\"{}hardware.\+h\char`\"{}}\newline
+Include dependency graph for Orders.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int $\ast$$\ast$ \hyperlink{Orders_8h_af7deab3b5084a57d134f044ad2b261cc}{orders\+\_\+init} ()
+\begin{DoxyCompactList}\small\item\em intializes the list of orders \end{DoxyCompactList}\item 
+void \hyperlink{Orders_8h_a0ef8cd8e6e23b6bb607403f172c7e12a}{add\+Order} (int $\ast$$\ast$order\+List, int floor, \hyperlink{hardware_8h_a796a8de8ce0ae769d7dbd3327a7bdbe7}{Hardware\+Order} button\+Type)
+\begin{DoxyCompactList}\small\item\em Add orders to orderlist a 4\+X2-\/matrix where either is up or down. \end{DoxyCompactList}\item 
+void \hyperlink{Orders_8h_a4ae8135df2faa78e62bdd1bfc98fb9eb}{clear\+All\+Orders} (int $\ast$$\ast$order\+List)
+\begin{DoxyCompactList}\small\item\em clear all orders if stop signal is high \end{DoxyCompactList}\item 
+void \hyperlink{Orders_8h_a79b89bcce9809c3d8b564b08fad85e0a}{order\+Completed} (int $\ast$$\ast$order\+List, int floor)
+\begin{DoxyCompactList}\small\item\em checks if the order on top of the orderlist is excuted \end{DoxyCompactList}\item 
+int \hyperlink{Orders_8h_a6f5e773608809f8831f0e49b1b5741bd}{destination} (int $\ast$$\ast$order\+List, int current\+Floor, \hyperlink{hardware_8h_a2167c399a24df296afc432bcb88228af}{Hardware\+Movement} dir)
+\begin{DoxyCompactList}\small\item\em Find the next destination for the elevator. \end{DoxyCompactList}\item 
+int \hyperlink{Orders_8h_a8796d4dbff38a04bf24bd6db58273010}{has\+Orders} (int $\ast$$\ast$orderlist)
+\begin{DoxyCompactList}\small\item\em Checks if there are more orders. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+controls and stores which orders to be executed 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{Orders_8h_a0ef8cd8e6e23b6bb607403f172c7e12a}\label{Orders_8h_a0ef8cd8e6e23b6bb607403f172c7e12a}} 
+\index{Orders.\+h@{Orders.\+h}!add\+Order@{add\+Order}}
+\index{add\+Order@{add\+Order}!Orders.\+h@{Orders.\+h}}
+\subsubsection{\texorpdfstring{add\+Order()}{addOrder()}}
+{\footnotesize\ttfamily void add\+Order (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{order\+List,  }\item[{int}]{floor,  }\item[{\hyperlink{hardware_8h_a796a8de8ce0ae769d7dbd3327a7bdbe7}{Hardware\+Order}}]{button\+Type }\end{DoxyParamCaption})}
+
+
+
+Add orders to orderlist a 4\+X2-\/matrix where either is up or down. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em order\+List} & the 2D array to store the order in \\
+\hline
+\mbox{\tt in}  & {\em floor} & the floor the order is associated with \\
+\hline
+\mbox{\tt in}  & {\em button\+Type} & The button type that created the order \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 32 of file Orders.\+c.
+
+\mbox{\Hypertarget{Orders_8h_a4ae8135df2faa78e62bdd1bfc98fb9eb}\label{Orders_8h_a4ae8135df2faa78e62bdd1bfc98fb9eb}} 
+\index{Orders.\+h@{Orders.\+h}!clear\+All\+Orders@{clear\+All\+Orders}}
+\index{clear\+All\+Orders@{clear\+All\+Orders}!Orders.\+h@{Orders.\+h}}
+\subsubsection{\texorpdfstring{clear\+All\+Orders()}{clearAllOrders()}}
+{\footnotesize\ttfamily void clear\+All\+Orders (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{order\+List }\end{DoxyParamCaption})}
+
+
+
+clear all orders if stop signal is high 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em order\+List} & Double pointer to the elevator\textquotesingle{}s orderlist \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 114 of file Orders.\+c.
+
+\mbox{\Hypertarget{Orders_8h_a6f5e773608809f8831f0e49b1b5741bd}\label{Orders_8h_a6f5e773608809f8831f0e49b1b5741bd}} 
+\index{Orders.\+h@{Orders.\+h}!destination@{destination}}
+\index{destination@{destination}!Orders.\+h@{Orders.\+h}}
+\subsubsection{\texorpdfstring{destination()}{destination()}}
+{\footnotesize\ttfamily int destination (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{order\+List,  }\item[{int}]{current\+Floor,  }\item[{\hyperlink{hardware_8h_a2167c399a24df296afc432bcb88228af}{Hardware\+Movement}}]{dir }\end{DoxyParamCaption})}
+
+
+
+Find the next destination for the elevator. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em order\+List} & Double pointer to the elevators orderlist \\
+\hline
+\mbox{\tt in}  & {\em current\+Floor} & The floor the elevator is at currently \\
+\hline
+\mbox{\tt in}  & {\em dir} & The direction the elevator is already moving \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily int} representing the destination floor 
+\end{DoxyReturn}
+
+
+Definition at line 81 of file Orders.\+c.
+
+\mbox{\Hypertarget{Orders_8h_a8796d4dbff38a04bf24bd6db58273010}\label{Orders_8h_a8796d4dbff38a04bf24bd6db58273010}} 
+\index{Orders.\+h@{Orders.\+h}!has\+Orders@{has\+Orders}}
+\index{has\+Orders@{has\+Orders}!Orders.\+h@{Orders.\+h}}
+\subsubsection{\texorpdfstring{has\+Orders()}{hasOrders()}}
+{\footnotesize\ttfamily int has\+Orders (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{orderlist }\end{DoxyParamCaption})}
+
+
+
+Checks if there are more orders. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em order\+List} & Double pointer to the elevator\textquotesingle{}s orderlist \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if there exists active orders, 0 otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line 126 of file Orders.\+c.
+
+\mbox{\Hypertarget{Orders_8h_a79b89bcce9809c3d8b564b08fad85e0a}\label{Orders_8h_a79b89bcce9809c3d8b564b08fad85e0a}} 
+\index{Orders.\+h@{Orders.\+h}!order\+Completed@{order\+Completed}}
+\index{order\+Completed@{order\+Completed}!Orders.\+h@{Orders.\+h}}
+\subsubsection{\texorpdfstring{order\+Completed()}{orderCompleted()}}
+{\footnotesize\ttfamily void order\+Completed (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{order\+List,  }\item[{int}]{floor }\end{DoxyParamCaption})}
+
+
+
+checks if the order on top of the orderlist is excuted 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em order\+List} & Double pointer to the elevator\textquotesingle{}s orderlist \\
+\hline
+\mbox{\tt in}  & {\em floor} & The floor which the order directed the elevator to \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 142 of file Orders.\+c.
+
+\mbox{\Hypertarget{Orders_8h_af7deab3b5084a57d134f044ad2b261cc}\label{Orders_8h_af7deab3b5084a57d134f044ad2b261cc}} 
+\index{Orders.\+h@{Orders.\+h}!orders\+\_\+init@{orders\+\_\+init}}
+\index{orders\+\_\+init@{orders\+\_\+init}!Orders.\+h@{Orders.\+h}}
+\subsubsection{\texorpdfstring{orders\+\_\+init()}{orders\_init()}}
+{\footnotesize\ttfamily int$\ast$$\ast$ orders\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+intializes the list of orders 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the made 2D array 
+\end{DoxyReturn}
+
+
+Definition at line 7 of file Orders.\+c.
+

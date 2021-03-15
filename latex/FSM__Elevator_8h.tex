@@ -1,0 +1,55 @@
+\hypertarget{FSM__Elevator_8h}{}\section{source/\+F\+S\+M\+\_\+\+Elevator.h File Reference}
+\label{FSM__Elevator_8h}\index{source/\+F\+S\+M\+\_\+\+Elevator.\+h@{source/\+F\+S\+M\+\_\+\+Elevator.\+h}}
+
+
+The state-\/machine of the elevator.  
+
+
+{\ttfamily \#include \char`\"{}Orders.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Elevator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}hardware.\+h\char`\"{}}\newline
+Include dependency graph for F\+S\+M\+\_\+\+Elevator.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{FSM__Elevator_8h_a84237f16ff1327d52a3702926a15403e}{F\+S\+M\+\_\+\+Elevator\+Init} ()
+\begin{DoxyCompactList}\small\item\em Initialises the state machine. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{FSM__Elevator_8h_a3ce41806f5d8c547e5818ffd741a53f6}\label{FSM__Elevator_8h_a3ce41806f5d8c547e5818ffd741a53f6}} 
+void \hyperlink{FSM__Elevator_8h_a3ce41806f5d8c547e5818ffd741a53f6}{elevator\+State\+Machine} ()
+\begin{DoxyCompactList}\small\item\em The elevator state machine that controls the elevator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{FSM__Elevator_8h_acf1d0260d91fda77230bc82b7887a2bc}\label{FSM__Elevator_8h_acf1d0260d91fda77230bc82b7887a2bc}} 
+void \hyperlink{FSM__Elevator_8h_acf1d0260d91fda77230bc82b7887a2bc}{event\+\_\+new\+Order} (int floor, \hyperlink{hardware_8h_a796a8de8ce0ae769d7dbd3327a7bdbe7}{Hardware\+Order} button\+Type)
+\begin{DoxyCompactList}\small\item\em Called when a new order is registered. Handles the new order. Sets lights. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{FSM__Elevator_8h_af55b95d844ac3e78358af35d5bc2fbb3}\label{FSM__Elevator_8h_af55b95d844ac3e78358af35d5bc2fbb3}} 
+void \hyperlink{FSM__Elevator_8h_af55b95d844ac3e78358af35d5bc2fbb3}{event\+\_\+floor\+Sensor\+Triggered} (int floor)
+\begin{DoxyCompactList}\small\item\em Called when the floor sensor is triggered. Sets info in elevator and lights. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{FSM__Elevator_8h_a744b7301f15eb763426cd7dc48421e3a}\label{FSM__Elevator_8h_a744b7301f15eb763426cd7dc48421e3a}} 
+void \hyperlink{FSM__Elevator_8h_a744b7301f15eb763426cd7dc48421e3a}{event\+\_\+stop\+Button} (bool status)
+\begin{DoxyCompactList}\small\item\em Called when the stop button status changes. Handles the event. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{FSM__Elevator_8h_a4289e19ccfddef0fa8b0073a0f25ad07}\label{FSM__Elevator_8h_a4289e19ccfddef0fa8b0073a0f25ad07}} 
+void \hyperlink{FSM__Elevator_8h_a4289e19ccfddef0fa8b0073a0f25ad07}{event\+\_\+obstruction} (bool status)
+\begin{DoxyCompactList}\small\item\em Called when the obstuction sensor is triggered. Handles the event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The state-\/machine of the elevator. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{FSM__Elevator_8h_a84237f16ff1327d52a3702926a15403e}\label{FSM__Elevator_8h_a84237f16ff1327d52a3702926a15403e}} 
+\index{F\+S\+M\+\_\+\+Elevator.\+h@{F\+S\+M\+\_\+\+Elevator.\+h}!F\+S\+M\+\_\+\+Elevator\+Init@{F\+S\+M\+\_\+\+Elevator\+Init}}
+\index{F\+S\+M\+\_\+\+Elevator\+Init@{F\+S\+M\+\_\+\+Elevator\+Init}!F\+S\+M\+\_\+\+Elevator.\+h@{F\+S\+M\+\_\+\+Elevator.\+h}}
+\subsubsection{\texorpdfstring{F\+S\+M\+\_\+\+Elevator\+Init()}{FSM\_ElevatorInit()}}
+{\footnotesize\ttfamily void F\+S\+M\+\_\+\+Elevator\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initialises the state machine. 
+
+\begin{DoxyWarning}{Warning}
+Must be called before the state machine is used. 
+\end{DoxyWarning}

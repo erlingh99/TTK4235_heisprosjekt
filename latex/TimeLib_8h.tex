@@ -1,0 +1,50 @@
+\hypertarget{TimeLib_8h}{}\section{source/\+Time\+Lib.h File Reference}
+\label{TimeLib_8h}\index{source/\+Time\+Lib.\+h@{source/\+Time\+Lib.\+h}}
+
+
+A small time-\/library for single threaded programs. The library must be polled to alert timeouts.  
+
+
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+Include dependency graph for Time\+Lib.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{TimeLib_8h_a206fcf1749b85ad3fd2880655f7ad9ed}{timer\+Start} (int timeout\+Secs)
+\begin{DoxyCompactList}\small\item\em Starts the timer by saving a timestamp and the length of the timer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{TimeLib_8h_aecc39b6c4a6a4d79a46ac2b6371221c5}\label{TimeLib_8h_aecc39b6c4a6a4d79a46ac2b6371221c5}} 
+void \hyperlink{TimeLib_8h_aecc39b6c4a6a4d79a46ac2b6371221c5}{timer\+Stop} ()
+\begin{DoxyCompactList}\small\item\em Stops the timer. If the timer is not active this function doesn\textquotesingle{}t do anything. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{TimeLib_8h_a6fbc13d1467461bc1f6798dbdfde8df1}\label{TimeLib_8h_a6fbc13d1467461bc1f6798dbdfde8df1}} 
+bool \hyperlink{TimeLib_8h_a6fbc13d1467461bc1f6798dbdfde8df1}{check\+Timeout} ()
+\begin{DoxyCompactList}\small\item\em Checks if the current timer has timed out. If there is no active timer, this function returns {\ttfamily False}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A small time-\/library for single threaded programs. The library must be polled to alert timeouts. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{TimeLib_8h_a206fcf1749b85ad3fd2880655f7ad9ed}\label{TimeLib_8h_a206fcf1749b85ad3fd2880655f7ad9ed}} 
+\index{Time\+Lib.\+h@{Time\+Lib.\+h}!timer\+Start@{timer\+Start}}
+\index{timer\+Start@{timer\+Start}!Time\+Lib.\+h@{Time\+Lib.\+h}}
+\subsubsection{\texorpdfstring{timer\+Start()}{timerStart()}}
+{\footnotesize\ttfamily void timer\+Start (\begin{DoxyParamCaption}\item[{int}]{timeout\+Secs }\end{DoxyParamCaption})}
+
+
+
+Starts the timer by saving a timestamp and the length of the timer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em timeout\+Secs} & The number of seconds untill the timer is finished If a timer is already active, the old will be overwritten. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 10 of file Time\+Lib.\+c.
+
