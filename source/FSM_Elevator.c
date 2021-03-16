@@ -17,7 +17,7 @@ void elevatorStateMachine()
     {
         case INIT:
             hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
-            if (p_elevator->floor >= 0) //e->floor is -1 untill floor sensor is triggered
+            if (atFloor())
             {
                 p_elevator->elevatorState = IDLE;
                 fprintf(stderr, "STATE change: INIT->IDLE\n");
@@ -101,6 +101,13 @@ void event_floorSensorTriggered(int floor)
 
 void event_stopButton(bool status)
 {
+    if (status && p_elevator->elevatorState == INIT)
+    {
+        fprintf(stderr, "Aborting initialisation. Program terminated \n"); //could also ignore, but is a nice "safety measure" IRL
+        exit(1);
+    }
+
+
     if (status && p_elevator->elevatorState != STOPPED)
     {
         hardware_command_stop_light(1);
