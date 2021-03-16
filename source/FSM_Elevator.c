@@ -35,7 +35,7 @@ void elevatorStateMachine()
         case MOVING:
         { //curly braces to define scope of currOrder
             int currOrder = findDestination(p_elevator->orders, p_elevator->floor, p_elevator->direction);
-            if (currOrder == -1)
+            if (currOrder < 0 || currOrder >= HARDWARE_NUMBER_OF_FLOORS)
                 exit(0);
             
             if ((p_elevator->floor == currOrder) && atFloor())

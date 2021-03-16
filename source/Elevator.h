@@ -58,14 +58,16 @@ Elevator* initElevator();
 void delElevator(Elevator* p_elevator);
 
 /**
- * @brief Tries to open the door of elevator pointed to by @p p_elevator.
+ * @brief Tries to open the door of elevator pointed to by @p p_elevator. If the elevator is not at a floor, the function fails.
  * @param[in, out] p_elevator Pointer to the elevator which door shall be opened
+ * @warning Never call this function while the elevator is moving.
  * @return @c int indicating success (0) or failure (1)
  */
 int openDoor(Elevator* p_elevator);
 
 /**
- * @brief Closes the door of elevator pointed to by @p p_elevator. If it is already closed, this function does nothing.
+ * @brief Tries to clos the door of elevator pointed to by @p p_elevator. If it is already closed, this function does nothing.
+ * If the timeout specified in @p p_elevator->doorOpenTime has not passed, the function fails.
  * @param[in, out] p_elevator Pointer to the elevator which door shall be closed
  * @return @c int indicating success (0) or failure (1)
  */
