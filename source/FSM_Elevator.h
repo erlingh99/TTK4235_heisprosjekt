@@ -2,7 +2,6 @@
  * @file 
  * @brief The state-machine of the elevator
  */
-
 #pragma once
 #include "Elevator.h"
 
@@ -19,21 +18,21 @@ void FSM_ElevatorInit();
 void elevatorStateMachine();
 
 /**
- * @brief Called when a new order is registered. Handles the new order. Sets lights.
+ * @brief Called when a order is registered. Handles the order. Sets lights.
  */
 void event_newOrder(int floor, HardwareOrder buttonType);
 
 /**
- * @brief Called when the floor sensor is triggered. Sets info in elevator and lights.
+ * @brief Called when the floor sensor is triggered. Sets info in *p_elevator and lights.
  */
 void event_floorSensorTriggered(int floor);
 
 /**
- * @brief Called when the stop button status changes. Handles the event.
+ * @brief Called to handle the stop button status.
  */
 void event_stopButton(bool status);
 
 /**
- * @brief Called when the obstuction sensor is triggered. Handles the event.
+ * @brief Called to handle the obstruction status.
  */
 void event_obstruction(bool status);

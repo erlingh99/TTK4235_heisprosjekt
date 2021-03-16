@@ -27,6 +27,8 @@ void elevatorLoop()
             }
         }
         //polling done
+
+        //react to polling results
         elevatorStateMachine();
     }
 }

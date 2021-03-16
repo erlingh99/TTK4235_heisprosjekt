@@ -35,6 +35,7 @@ void elevatorStateMachine()
         case MOVING:
         { //curly braces to define scope of currOrder
             int currOrder = findDestination(p_elevator->orders, p_elevator->floor, p_elevator->direction);
+
             if (currOrder < 0 || currOrder >= HARDWARE_NUMBER_OF_FLOORS)
                 exit(0);
             
@@ -61,7 +62,7 @@ void elevatorStateMachine()
             }
             else if (p_elevator->floor == currOrder && !p_elevator->moved)
             {                
-                //Stopped between floors and having order back to prev floor
+                //Stopped between floors and having order back to prev floor: Revert last driven direction
                 if (p_elevator->direction == HARDWARE_MOVEMENT_UP)
                 {
                     hardware_command_movement(HARDWARE_MOVEMENT_DOWN); //opposite dir
@@ -78,7 +79,8 @@ void elevatorStateMachine()
         }
         case STOPPED:
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-            openDoor(p_elevator); //keeps the door open if the elevator is stopped at a floor
+            if (atFloor())
+                openDoor(p_elevator);
             p_elevator->moved = false;
             break;
     }
@@ -129,7 +131,7 @@ void event_stopButton(bool status)
     }
 }
 
-void event_obstruction(bool status) //set obstruction flag
+void event_obstruction(bool status)
 {
     p_elevator->obstruction = status;
 }

@@ -6,25 +6,25 @@
 
 Elevator* initElevator()
 {
-    Elevator *elevator = (Elevator*)malloc(sizeof(Elevator));
-    if (elevator == NULL)
+    Elevator *p_elevator = (Elevator*)malloc(sizeof(Elevator));
+    if (p_elevator == NULL)
     {
         fprintf(stderr, "elevator memory allocation failed");
         exit(0);
     }
     
-    elevator->elevatorState = INIT;
-    elevator->floor = -1;
-    elevator->doorOpenTime = doorTime;
-    elevator->doorState = CLOSED;
-    elevator->direction = HARDWARE_MOVEMENT_DOWN;
-    elevator->obstruction = false;
-    elevator->orders = orders_init();
-    elevator->moved = false;
+    p_elevator->elevatorState = INIT;
+    p_elevator->floor = -1;
+    p_elevator->doorOpenTime = doorTime;
+    p_elevator->doorState = CLOSED;
+    p_elevator->direction = HARDWARE_MOVEMENT_DOWN;
+    p_elevator->obstruction = false;
+    p_elevator->orders = orders_init();
+    p_elevator->moved = false;
 
     fprintf(stderr, "elevator init done\n");
 
-    return elevator;
+    return p_elevator;
 }
 
 void delElevator(Elevator *p_elevator)

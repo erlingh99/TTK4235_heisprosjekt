@@ -8,6 +8,7 @@
 
 #define doorTime 3
 
+
 /**
  *  @brief @c enum ElevatorState describes the state the elevator is in.
  *  Available states are INIT, IDLE, MOVING and STOPPED.
