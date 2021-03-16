@@ -1,62 +1,67 @@
-\hypertarget{Elevator_8h}{}\section{source/\+Elevator.h File Reference}
-\label{Elevator_8h}\index{source/\+Elevator.\+h@{source/\+Elevator.\+h}}
+\hypertarget{Elevator_8h}{}\doxysection{source/\+Elevator.h File Reference}
+\label{Elevator_8h}\index{source/Elevator.h@{source/Elevator.h}}
 
 
 File describing the elevator type and helping types.  
 
 
 {\ttfamily \#include \char`\"{}hardware.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}Orders.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$stdbool.\+h$>$}\newline
 Include dependency graph for Elevator.\+h\+:
 % FIG 0
 This graph shows which files directly or indirectly include this file\+:
 % FIG 1
-\subsection*{Data Structures}
+\doxysubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
-struct \hyperlink{structElevator}{Elevator}
-\begin{DoxyCompactList}\small\item\em {\ttfamily \hyperlink{structElevator}{Elevator}} describes the elevator. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Enumerations}
+struct \mbox{\hyperlink{structElevator}{Elevator}}
+\begin{DoxyCompactList}\small\item\em {\ttfamily \mbox{\hyperlink{structElevator}{Elevator}}} describes the elevator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{Elevator_8h_a98fe138c54a0228ad7bbc543647c7ea0}\label{Elevator_8h_a98fe138c54a0228ad7bbc543647c7ea0}} 
+\#define {\bfseries door\+Time}~3
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{Elevator_8h_ada8a6679b36fc4f29442334494afb588}\label{Elevator_8h_ada8a6679b36fc4f29442334494afb588}} 
-enum \hyperlink{Elevator_8h_ada8a6679b36fc4f29442334494afb588}{Elevator\+State} \{ {\bfseries I\+N\+IT}, 
+enum \mbox{\hyperlink{Elevator_8h_ada8a6679b36fc4f29442334494afb588}{Elevator\+State}} \{ {\bfseries I\+N\+IT}, 
 {\bfseries I\+D\+LE}, 
 {\bfseries M\+O\+V\+I\+NG}, 
 {\bfseries S\+T\+O\+P\+P\+ED}
- \}\begin{DoxyCompactList}\small\item\em {\ttfamily enum} Elevator\+State describes the state the elevator is in. Available states are I\+N\+IT, I\+D\+LE, M\+O\+V\+I\+NG and S\+T\+O\+P\+P\+ED. \end{DoxyCompactList}
-\item 
+ \}
+\begin{DoxyCompactList}\small\item\em {\ttfamily enum} Elevator\+State describes the state the elevator is in. Available states are I\+N\+IT, I\+D\+LE, M\+O\+V\+I\+NG and S\+T\+O\+P\+P\+ED. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{Elevator_8h_a117f8df7c03b73093e6da94ae41b4252}\label{Elevator_8h_a117f8df7c03b73093e6da94ae41b4252}} 
-enum \hyperlink{Elevator_8h_a117f8df7c03b73093e6da94ae41b4252}{Door\+State} \{ {\bfseries O\+P\+EN}, 
+enum \mbox{\hyperlink{Elevator_8h_a117f8df7c03b73093e6da94ae41b4252}{Door\+State}} \{ {\bfseries O\+P\+EN}, 
 {\bfseries C\+L\+O\+S\+ED}
- \}\begin{DoxyCompactList}\small\item\em {\ttfamily enum} Door\+State describes the state the elevator door is in. Available states are O\+P\+EN and C\+L\+O\+S\+ED. \end{DoxyCompactList}
-\end{DoxyCompactItemize}
-\subsection*{Functions}
+ \}
+\begin{DoxyCompactList}\small\item\em {\ttfamily enum} Door\+State describes the state the elevator door is in. Available states are O\+P\+EN and C\+L\+O\+S\+ED. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{structElevator}{Elevator} $\ast$ \hyperlink{Elevator_8h_a9d1281e9994d1dbb31de4fcb84323f08}{init\+Elevator} (int door\+Open\+Time)
+\mbox{\hyperlink{structElevator}{Elevator}} $\ast$ \mbox{\hyperlink{Elevator_8h_a3805e6ff5995c96daa887456c7df2910}{init\+Elevator}} ()
 \begin{DoxyCompactList}\small\item\em Initialises the elevator. \end{DoxyCompactList}\item 
-void \hyperlink{Elevator_8h_ab7ba242924e45b7fb69c6278fea231a1}{del\+Elevator} (\hyperlink{structElevator}{Elevator} $\ast$e)
-\begin{DoxyCompactList}\small\item\em Frees the memory occupied by the elevator $\ast$e. \end{DoxyCompactList}\item 
-int \hyperlink{Elevator_8h_a0017890cf3e3891534dfbcd5a251d418}{open\+Door} (\hyperlink{structElevator}{Elevator} $\ast$e)
-\begin{DoxyCompactList}\small\item\em Tries to open the door of elevator {\ttfamily e}. \end{DoxyCompactList}\item 
-int \hyperlink{Elevator_8h_abc043e15c2650ade3e2bb40441fc412a}{close\+Door} (\hyperlink{structElevator}{Elevator} $\ast$e)
-\begin{DoxyCompactList}\small\item\em Closes the door of elevator {\ttfamily e}. If it is already closed, this function does nothing. \end{DoxyCompactList}\item 
-int \hyperlink{Elevator_8h_a98963d84323ab1da4f14dec257420d0d}{at\+Floor} ()
+void \mbox{\hyperlink{Elevator_8h_a612ea77b3186a5cf583a70989f5feac3}{del\+Elevator}} (\mbox{\hyperlink{structElevator}{Elevator}} $\ast$p\+\_\+elevator)
+\begin{DoxyCompactList}\small\item\em Frees the memory occupied by the elevator pointed to by {\ttfamily p\+\_\+elevator}. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Elevator_8h_a1389dedff7d14a786f804aea64460722}{open\+Door}} (\mbox{\hyperlink{structElevator}{Elevator}} $\ast$p\+\_\+elevator)
+\begin{DoxyCompactList}\small\item\em Tries to open the door of elevator pointed to by {\ttfamily p\+\_\+elevator}. If the elevator is not at a floor, the function fails. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Elevator_8h_a906b4b86c692ca1698257f8c2e569acd}{close\+Door}} (\mbox{\hyperlink{structElevator}{Elevator}} $\ast$p\+\_\+elevator)
+\begin{DoxyCompactList}\small\item\em Tries to clos the door of elevator pointed to by {\ttfamily p\+\_\+elevator}. If it is already closed, this function does nothing. If the timeout specified in {\ttfamily p\+\_\+elevator-\/$>$door\+Open\+Time} has not passed, the function fails. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{Elevator_8h_a98963d84323ab1da4f14dec257420d0d}{at\+Floor}} ()
 \begin{DoxyCompactList}\small\item\em Checks if the elevator is at a floor. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
+\doxysubsection{Detailed Description}
 File describing the elevator type and helping types. 
 
 
 
-\subsection{Function Documentation}
+\doxysubsection{Function Documentation}
 \mbox{\Hypertarget{Elevator_8h_a98963d84323ab1da4f14dec257420d0d}\label{Elevator_8h_a98963d84323ab1da4f14dec257420d0d}} 
-\index{Elevator.\+h@{Elevator.\+h}!at\+Floor@{at\+Floor}}
-\index{at\+Floor@{at\+Floor}!Elevator.\+h@{Elevator.\+h}}
-\subsubsection{\texorpdfstring{at\+Floor()}{atFloor()}}
+\index{Elevator.h@{Elevator.h}!atFloor@{atFloor}}
+\index{atFloor@{atFloor}!Elevator.h@{Elevator.h}}
+\doxysubsubsection{\texorpdfstring{atFloor()}{atFloor()}}
 {\footnotesize\ttfamily int at\+Floor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
@@ -68,21 +73,21 @@ Checks if the elevator is at a floor.
 \end{DoxyReturn}
 
 
-Definition at line 66 of file Elevator.\+c.
+Definition at line 67 of file Elevator.\+c.
 
-\mbox{\Hypertarget{Elevator_8h_abc043e15c2650ade3e2bb40441fc412a}\label{Elevator_8h_abc043e15c2650ade3e2bb40441fc412a}} 
-\index{Elevator.\+h@{Elevator.\+h}!close\+Door@{close\+Door}}
-\index{close\+Door@{close\+Door}!Elevator.\+h@{Elevator.\+h}}
-\subsubsection{\texorpdfstring{close\+Door()}{closeDoor()}}
-{\footnotesize\ttfamily int close\+Door (\begin{DoxyParamCaption}\item[{\hyperlink{structElevator}{Elevator} $\ast$}]{e }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{Elevator_8h_a906b4b86c692ca1698257f8c2e569acd}\label{Elevator_8h_a906b4b86c692ca1698257f8c2e569acd}} 
+\index{Elevator.h@{Elevator.h}!closeDoor@{closeDoor}}
+\index{closeDoor@{closeDoor}!Elevator.h@{Elevator.h}}
+\doxysubsubsection{\texorpdfstring{closeDoor()}{closeDoor()}}
+{\footnotesize\ttfamily int close\+Door (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structElevator}{Elevator}} $\ast$}]{p\+\_\+elevator }\end{DoxyParamCaption})}
 
 
 
-Closes the door of elevator {\ttfamily e}. If it is already closed, this function does nothing. 
+Tries to clos the door of elevator pointed to by {\ttfamily p\+\_\+elevator}. If it is already closed, this function does nothing. If the timeout specified in {\ttfamily p\+\_\+elevator-\/$>$door\+Open\+Time} has not passed, the function fails. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in,out}  & {\em e} & Pointer to the elevator which door shall be closed \\
+\mbox{\texttt{ in,out}}  & {\em p\+\_\+elevator} & Pointer to the elevator which door shall be closed \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -90,42 +95,37 @@ Closes the door of elevator {\ttfamily e}. If it is already closed, this functio
 \end{DoxyReturn}
 
 
-Definition at line 51 of file Elevator.\+c.
+Definition at line 52 of file Elevator.\+c.
 
-\mbox{\Hypertarget{Elevator_8h_ab7ba242924e45b7fb69c6278fea231a1}\label{Elevator_8h_ab7ba242924e45b7fb69c6278fea231a1}} 
-\index{Elevator.\+h@{Elevator.\+h}!del\+Elevator@{del\+Elevator}}
-\index{del\+Elevator@{del\+Elevator}!Elevator.\+h@{Elevator.\+h}}
-\subsubsection{\texorpdfstring{del\+Elevator()}{delElevator()}}
-{\footnotesize\ttfamily void del\+Elevator (\begin{DoxyParamCaption}\item[{\hyperlink{structElevator}{Elevator} $\ast$}]{e }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{Elevator_8h_a612ea77b3186a5cf583a70989f5feac3}\label{Elevator_8h_a612ea77b3186a5cf583a70989f5feac3}} 
+\index{Elevator.h@{Elevator.h}!delElevator@{delElevator}}
+\index{delElevator@{delElevator}!Elevator.h@{Elevator.h}}
+\doxysubsubsection{\texorpdfstring{delElevator()}{delElevator()}}
+{\footnotesize\ttfamily void del\+Elevator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structElevator}{Elevator}} $\ast$}]{p\+\_\+elevator }\end{DoxyParamCaption})}
 
 
 
-Frees the memory occupied by the elevator $\ast$e. 
+Frees the memory occupied by the elevator pointed to by {\ttfamily p\+\_\+elevator}. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in,out}  & {\em e} & Pointer to the elevator to delete \\
+\mbox{\texttt{ in,out}}  & {\em p\+\_\+elevator} & Pointer to the elevator to delete \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line 29 of file Elevator.\+c.
+Definition at line 30 of file Elevator.\+c.
 
-\mbox{\Hypertarget{Elevator_8h_a9d1281e9994d1dbb31de4fcb84323f08}\label{Elevator_8h_a9d1281e9994d1dbb31de4fcb84323f08}} 
-\index{Elevator.\+h@{Elevator.\+h}!init\+Elevator@{init\+Elevator}}
-\index{init\+Elevator@{init\+Elevator}!Elevator.\+h@{Elevator.\+h}}
-\subsubsection{\texorpdfstring{init\+Elevator()}{initElevator()}}
-{\footnotesize\ttfamily \hyperlink{structElevator}{Elevator}$\ast$ init\+Elevator (\begin{DoxyParamCaption}\item[{int}]{door\+Open\+Time }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{Elevator_8h_a3805e6ff5995c96daa887456c7df2910}\label{Elevator_8h_a3805e6ff5995c96daa887456c7df2910}} 
+\index{Elevator.h@{Elevator.h}!initElevator@{initElevator}}
+\index{initElevator@{initElevator}!Elevator.h@{Elevator.h}}
+\doxysubsubsection{\texorpdfstring{initElevator()}{initElevator()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structElevator}{Elevator}}$\ast$ init\+Elevator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
 Initialises the elevator. 
 
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em door\+Open\+Time} & Sets the number of seconds the elevator door remains open. \\
-\hline
-\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 {\ttfamily Elevator$\ast$} pointer to the elevator struct. 
 \end{DoxyReturn}
@@ -134,27 +134,30 @@ The returned elevator is not in a consistent state
 \end{DoxyWarning}
 
 
-Definition at line 6 of file Elevator.\+c.
+Definition at line 7 of file Elevator.\+c.
 
-\mbox{\Hypertarget{Elevator_8h_a0017890cf3e3891534dfbcd5a251d418}\label{Elevator_8h_a0017890cf3e3891534dfbcd5a251d418}} 
-\index{Elevator.\+h@{Elevator.\+h}!open\+Door@{open\+Door}}
-\index{open\+Door@{open\+Door}!Elevator.\+h@{Elevator.\+h}}
-\subsubsection{\texorpdfstring{open\+Door()}{openDoor()}}
-{\footnotesize\ttfamily int open\+Door (\begin{DoxyParamCaption}\item[{\hyperlink{structElevator}{Elevator} $\ast$}]{e }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{Elevator_8h_a1389dedff7d14a786f804aea64460722}\label{Elevator_8h_a1389dedff7d14a786f804aea64460722}} 
+\index{Elevator.h@{Elevator.h}!openDoor@{openDoor}}
+\index{openDoor@{openDoor}!Elevator.h@{Elevator.h}}
+\doxysubsubsection{\texorpdfstring{openDoor()}{openDoor()}}
+{\footnotesize\ttfamily int open\+Door (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structElevator}{Elevator}} $\ast$}]{p\+\_\+elevator }\end{DoxyParamCaption})}
 
 
 
-Tries to open the door of elevator {\ttfamily e}. 
+Tries to open the door of elevator pointed to by {\ttfamily p\+\_\+elevator}. If the elevator is not at a floor, the function fails. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in,out}  & {\em e} & Pointer to the elevator which door shall be opened \\
+\mbox{\texttt{ in,out}}  & {\em p\+\_\+elevator} & Pointer to the elevator which door shall be opened \\
 \hline
 \end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Never call this function while the elevator is moving. 
+\end{DoxyWarning}
 \begin{DoxyReturn}{Returns}
 {\ttfamily int} indicating success (0) or failure (1) 
 \end{DoxyReturn}
 
 
-Definition at line 39 of file Elevator.\+c.
+Definition at line 40 of file Elevator.\+c.
 

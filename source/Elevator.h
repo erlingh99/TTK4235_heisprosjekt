@@ -34,14 +34,14 @@ typedef enum {
  * @brief @c Elevator describes the elevator. 
  */
 typedef struct {
-    int floor;                   //< The floor the elevator last visited
-    HardwareMovement direction;  //< The direction the elevator is moving or last moved
-    ElevatorState elevatorState; //< The state of the elevator
-    int **orders;                //< The orders of the elevator
-    DoorState doorState;         //< The state of the elevator door
-    bool obstruction;            //< If there are any obstructions so the elevator door should remain open
-    int doorOpenTime;            //< The number of seconds the elevator door remains open
-    bool moved;                  //< indicates if the elevator has moved since last stopped
+    int floor;                   ///< The floor the elevator last visited
+    HardwareMovement direction;  ///< The direction the elevator is moving or last moved
+    ElevatorState elevatorState; ///< The state of the elevator
+    int **orders;                ///< The orders of the elevator
+    DoorState doorState;         ///< The state of the elevator door
+    bool obstruction;            ///< If there are any obstructions so the elevator door should remain open
+    int doorOpenTime;            ///< The number of seconds the elevator door remains open
+    bool moved;                  ///< indicates if the elevator has moved since last stopped
 } Elevator;
 
 /**
