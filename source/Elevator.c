@@ -33,6 +33,7 @@ void delElevator(Elevator *p_elevator)
     {
         for (int i = 0; i<HARDWARE_NUMBER_OF_FLOORS; i++)
             free((p_elevator->orders)[i]);
+        free(p_elevator->orders);
         free(p_elevator);
     }
 }

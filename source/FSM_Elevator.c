@@ -106,6 +106,7 @@ void event_stopButton(bool status)
     if (status && p_elevator->elevatorState == INIT)
     {
         fprintf(stderr, "Aborting initialisation. Program terminated \n"); //could also ignore, but is a nice "safety measure" IRL
+        delElevator(p_elevator);
         exit(1);
     }
 
